@@ -1,0 +1,96 @@
+{
+  "terraform": {
+    "required_providers": {
+      "databricks": {
+        "source": "databricks/databricks",
+        "version": "1.40.0"
+      }
+    }
+  },
+  "provider": {
+    "databricks": {}
+  },
+  "resource": {
+    "databricks_job": {
+      "experian_dlt_job": {
+        "deployment": {
+          "kind": "BUNDLE",
+          "metadata_file_path": "/Users/theodore.kop@databricks.com/.bundle/experian_dlt/dev/state/metadata.json"
+        },
+        "edit_mode": "UI_LOCKED",
+        "email_notifications": {
+          "on_failure": [
+            "theodore.kop@databricks.com"
+          ]
+        },
+        "format": "MULTI_TASK",
+        "job_cluster": [
+          {
+            "job_cluster_key": "job_cluster",
+            "new_cluster": {
+              "autoscale": {
+                "max_workers": 4,
+                "min_workers": 1
+              },
+              "node_type_id": "i3.xlarge",
+              "spark_version": "14.3.x-scala2.12"
+            }
+          }
+        ],
+        "max_concurrent_runs": 4,
+        "name": "[dev theodore_kop] experian_dlt_job",
+        "parameter": [
+          {
+            "default": "/Workspace//Users/theodore.kop@databricks.com/.bundle/experian_dlt/dev/files/resources/pipeline_config/pipeline_tbls_config.yml",
+            "name": "config_path"
+          }
+        ],
+        "queue": {
+          "enabled": true
+        },
+        "schedule": {
+          "pause_status": "PAUSED",
+          "quartz_cron_expression": "44 37 8 * * ?",
+          "timezone_id": "Europe/Amsterdam"
+        },
+        "tags": {
+          "dev": "theodore_kop"
+        },
+        "task": [
+          {
+            "pipeline_task": {
+              "pipeline_id": "${databricks_pipeline.experian_dlt_pipeline.id}"
+            },
+            "task_key": "refresh_pipeline"
+          }
+        ]
+      }
+    },
+    "databricks_pipeline": {
+      "experian_dlt_pipeline": {
+        "catalog": "theodore_kop_quickstart",
+        "channel": "PREVIEW",
+        "configuration": {
+          "bundle.sourcePath": "/Workspace//Users/theodore.kop@databricks.com/.bundle/experian_dlt/dev/files/src"
+        },
+        "continuous": false,
+        "deployment": {
+          "kind": "BUNDLE",
+          "metadata_file_path": "/Users/theodore.kop@databricks.com/.bundle/experian_dlt/dev/state/metadata.json"
+        },
+        "development": true,
+        "edition": "ADVANCED",
+        "library": [
+          {
+            "notebook": {
+              "path": "/Users/theodore.kop@databricks.com/.bundle/experian_dlt/dev/files/src/dlt_pipeline"
+            }
+          }
+        ],
+        "name": "[dev theodore_kop] experian_dlt_pipeline",
+        "photon": true,
+        "target": "experian_dlt_dev"
+      }
+    }
+  }
+}
