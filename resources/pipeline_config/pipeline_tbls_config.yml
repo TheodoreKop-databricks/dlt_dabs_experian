@@ -18,7 +18,7 @@ delta_live_store:
     spark_conf: {}
     partition_cols: []
     group: main.manufacturing
-    comment: This is the main manufacturing production table.
+    comment: This is the raw csv data from the volume containing product inventory data
     expectations: 
       expect_all: {}
       expect_all_or_drop: {}
