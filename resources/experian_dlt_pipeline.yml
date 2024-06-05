@@ -1,0 +1,18 @@
+# The main pipeline for experian_dlt
+resources:
+  pipelines:
+    experian_dlt_pipeline:
+      name: experian_dlt_pipeline
+      continuous: false
+      libraries:
+        - notebook:
+            path: ../src/dlt_pipeline.ipynb
+      edition: "ADVANCED"
+      target: experian_dlt_${bundle.environment}
+      development: true
+      photon: true
+      channel: PREVIEW
+      catalog: theodore_kop_quickstart
+      data_sampling: false
+      configuration:
+        bundle.sourcePath: /Workspace/${workspace.file_path}/src

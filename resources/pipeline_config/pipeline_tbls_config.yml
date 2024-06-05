@@ -1,0 +1,60 @@
+delta_live_store:
+  - entity_id: "1"
+    source: /Volumes/theodore_kop_quickstart/structured_streaming_meta/raw_data/products/
+    destination: products_bronze
+    destination_type: table
+    source_format: cloudFiles
+    is_streaming: true
+    is_enabled: true
+    source_schema: ~
+    primary_keys: 
+      - product_id
+    select_expr: []
+    read_options: 
+      cloudFiles.format: csv
+      header: "true"
+    table_properties: {}
+    tags: {}
+    spark_conf: {}
+    partition_cols: []
+    group: main.manufacturing
+    comment: This is the main manufacturing production table.
+    expectations: 
+      expect_all: {}
+      expect_all_or_drop: {}
+      expect_all_or_fail: {}
+    is_quarantined: false
+
+  - entity_id: "2"
+    primary_keys: 
+      - product_id
+    is_enabled: true
+    source: products_bronze
+    source_format: dlt
+    destination: products_silver
+    is_streaming: true
+    group: main.manufacturing
+    is_quarantined: true
+    # apply_changes:
+    #   sequence_by: id
+    expectations: 
+      expect_all: 
+        price_gt_50: "price > 50"
+
+  - entity_id: "3"
+    primary_keys: 
+      - product_id
+    is_enabled: true
+    source: products_silver
+    source_format: dlt
+    destination: products_gold
+    is_streaming: true
+    group: main.manufacturing
+    is_quarantined: true
+    apply_changes:
+      sequence_by: modified_at
+      ignore_null_updates: true
+      apply_as_deletes: "op = 'delete'"
+    expectations: 
+      expect_all: 
+        price_gt_50: "price > 50"
