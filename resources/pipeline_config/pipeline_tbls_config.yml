@@ -57,4 +57,4 @@ delta_live_store:
       apply_as_deletes: "op = 'delete'"
     expectations: 
       expect_all: 
-        price_gt_50: "price > 50"
+        price_gt_50: "price > 70"
