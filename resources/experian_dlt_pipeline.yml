@@ -8,11 +8,11 @@ resources:
         - notebook:
             path: ../src/dlt_pipeline.ipynb
       edition: "ADVANCED"
-      target: experian_dlt_${bundle.environment}
+      target: dlt_dabs_test
       development: true
       photon: true
       channel: PREVIEW
-      catalog: theodore_kop_quickstart
+      catalog: unity_catalog_dev.
       data_sampling: false
       configuration:
         bundle.sourcePath: /Workspace/${workspace.file_path}/src
