@@ -6,13 +6,14 @@ resources:
       continuous: false
       libraries:
         - notebook:
-            path: ../src/dlt_pipeline.ipynb
+            path: ../src/dlt_metadata_config_pipeline.ipynb
       edition: "ADVANCED"
       target: dlt_dabs_test
       development: true
       photon: true
       channel: PREVIEW
-      catalog: unity_catalog_dev.
+      catalog: unity_catalog_dev
       data_sampling: false
-      configuration:
+      configuration: 
         bundle.sourcePath: /Workspace/${workspace.file_path}/src
+        pipeline.initial_run: true
