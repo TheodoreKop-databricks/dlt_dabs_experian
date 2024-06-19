@@ -1,6 +1,6 @@
 delta_live_store:
   - entity_id: "1"
-    source: /Volumes/theodore_kop_quickstart/structured_streaming_meta/raw_data/products/
+    source: /Volumes/unity_catalog_dev/dlt_dabs_test/raw_data/products/
     destination: products_bronze
     destination_type: table
     source_format: cloudFiles
@@ -57,4 +57,4 @@ delta_live_store:
       apply_as_deletes: "op = 'delete'"
     expectations: 
       expect_all: 
-        price_gt_50: "price > 50"
+        price_gt_50: "price > 70"

@@ -68,7 +68,7 @@
     },
     "databricks_pipeline": {
       "experian_dlt_pipeline": {
-        "catalog": "theodore_kop_quickstart",
+        "catalog": "unity_catalog_dev",
         "channel": "PREVIEW",
         "configuration": {
           "bundle.sourcePath": "/Workspace//Users/theodore.kop@databricks.com/.bundle/experian_dlt/dev/files/src"
@@ -89,7 +89,7 @@
         ],
         "name": "[dev theodore_kop] experian_dlt_pipeline",
         "photon": true,
-        "target": "experian_dlt_dev"
+        "target": "dlt_dabs_test"
       }
     }
   }
